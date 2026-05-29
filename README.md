@@ -84,7 +84,7 @@ opencode
 
 Tapez simplement dans le chat de l'agent :
 
-```bash
+```text
 yaam-init
 ```
 
