@@ -31,10 +31,10 @@
 - [ ] Implémenter la logique `setup_yaam_framework` qui écrit ces fichiers
 
 ### 1.3 Initialisation intelligente (`yaam-init`)
-- [ ] Scanner le projet cible pour détecter un `README.md` existant
-- [ ] Analyser le README pour extraire nom, stack technique, contraintes
+- [x] Scanner le projet cible pour détecter un `README.md` existant
+- [x] Analyser le README pour extraire nom, stack technique, contraintes
 - [ ] Poser des questions de clarification à l'utilisateur dans le chat
-- [ ] Générer l'arborescence adaptée aux réponses
+- [x] Générer l'arborescence adaptée aux réponses
 
 ---
 
@@ -90,3 +90,4 @@
 |------|-------|
 | 2026-07-30 | Templates contextuels markdown (×9) |
 | 2026-07-30 | Serveur MCP yaam-server (Python) + 6 outils MCP |
+| 2026-07-30 | Init intelligente yaam_init (scan README, détection stack, script standalone) |
