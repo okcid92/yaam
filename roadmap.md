@@ -87,12 +87,12 @@
 
 ### 4.1 Intégration continue
 
-- [ ] Configurer une CI pour builder le `.deb` automatiquement
+- [x] Configurer une CI pour builder le `.deb` automatiquement (GitHub Actions)
 - [ ] Publier les releases sur GitHub
 
 ### 4.2 Templates avancés
 
-- [ ] Proposer des templates par stack (Laravel, Next.js, React Native, Django)
+- [x] Proposer des templates par stack (Laravel, Next.js, React Native, Django) — 11 fichiers
 - [ ] Option : template vide vs template pré-rempli
 
 ### 4.3 Feedback & améliorations
@@ -112,3 +112,4 @@
 | 2026-07-30 | Init intelligente yaam_init (scan README, détection stack, script standalone) |
 | 2026-07-30 | Packaging .deb (control, postinst, postrm, .desktop, build-deb.sh) |
 | 2026-07-30 | Phase 3 — Robustesse (double init, permissions, dry-run, tests pytest) |
+| 2026-07-30 | Phase 4 — CI (GitHub Actions) + templates stack (Laravel, Next.js, Django, React Native) |

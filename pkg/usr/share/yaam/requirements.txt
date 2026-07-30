@@ -1,2 +1,2 @@
 mcp>=2.0
-anyio
+anyio>=4.0

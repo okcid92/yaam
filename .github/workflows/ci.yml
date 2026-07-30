@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          pip install mcp pytest
+      - name: Run tests
+        run: |
+          python3 -m pytest tests/ -v
+      - name: Build .deb
+        run: |
+          bash build-deb.sh
+      - name: Upload .deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: yaam-deb
+          path: yaam_*.deb

@@ -125,8 +125,14 @@ def _find_templates_dir() -> Path:
     return candidates[0]
 
 
-def _read_template(*parts: str) -> str:
+def _read_template(*parts: str, stack: str = "") -> str:
     templates_dir = _find_templates_dir()
+    # Try stack-specific template first
+    if stack and stack != "generic":
+        stack_path = templates_dir / "stacks" / stack / "contexts" / parts[-1]
+        if stack_path.exists():
+            return stack_path.read_text(encoding="utf-8")
+    # Fall back to generic template
     path = templates_dir.joinpath(*parts)
     if not path.exists():
         return f"# {parts[-1]}\n\nTemplate not found.\n"
@@ -214,7 +220,7 @@ async def _setup_yaam_framework(project_path: str, project_name: str, stack: str
             err = _check_writable(filepath)
             if err:
                 return json_dumps({"error": err})
-            content = _read_template(dir_name, fname)
+            content = _read_template(dir_name, fname, stack=stack)
             filepath.write_text(content, encoding="utf-8")
             created.append(f"{dir_name}/{fname}")
 

@@ -37,7 +37,7 @@ TOOLS: list[Tool] = [
     ),
     Tool(
         name="setup_yaam_framework",
-        description="Generate the full Yaam directory tree in the project",
+        description="Generate the full Yaam directory tree in the project. If already initialized and force=false, returns a confirmation request.",
         input_schema={
             "type": "object",
             "properties": {
@@ -45,6 +45,7 @@ TOOLS: list[Tool] = [
                 "project_name": {"type": "string", "description": "Name of the project"},
                 "stack": {"type": "string", "description": "Tech stack (generic, nextjs, laravel, etc.)"},
                 "dry_run": {"type": "boolean", "description": "Preview without writing files"},
+                "force": {"type": "boolean", "description": "Overwrite existing Yaam framework without asking"},
             },
             "required": ["project_path", "project_name"],
         },
@@ -124,8 +125,14 @@ def _find_templates_dir() -> Path:
     return candidates[0]
 
 
-def _read_template(*parts: str) -> str:
+def _read_template(*parts: str, stack: str = "") -> str:
     templates_dir = _find_templates_dir()
+    # Try stack-specific template first
+    if stack and stack != "generic":
+        stack_path = templates_dir / "stacks" / stack / "contexts" / parts[-1]
+        if stack_path.exists():
+            return stack_path.read_text(encoding="utf-8")
+    # Fall back to generic template
     path = templates_dir.joinpath(*parts)
     if not path.exists():
         return f"# {parts[-1]}\n\nTemplate not found.\n"
@@ -134,6 +141,27 @@ def _read_template(*parts: str) -> str:
 
 def _progress_tracer_path(project_path: str) -> Path:
     return Path(project_path) / "contexts" / "progress-tracer.md"
+
+
+def _is_yaam_initialized(project_path: str) -> bool:
+    return (Path(project_path) / "contexts").is_dir()
+
+
+def _check_writable(*paths: Path) -> str | None:
+    for path in paths:
+        try:
+            if path.exists():
+                if not os.access(path, os.W_OK):
+                    return f"Permission denied: {path} is not writable"
+            else:
+                parent = path.parent
+                if not parent.exists():
+                    parent.mkdir(parents=True, exist_ok=True)
+                if not os.access(parent, os.W_OK):
+                    return f"Permission denied: cannot create {path} (parent not writable)"
+        except PermissionError as e:
+            return f"Permission denied: {e}"
+    return None
 
 
 # Tool implementations
@@ -147,8 +175,16 @@ async def _check_yaam_status(project_path: str) -> str:
     return json_dumps({"initialized": True, "project": root.name, "context_files": files})
 
 
-async def _setup_yaam_framework(project_path: str, project_name: str, stack: str = "generic", dry_run: bool = False) -> str:
+async def _setup_yaam_framework(project_path: str, project_name: str, stack: str = "generic", dry_run: bool = False, force: bool = False) -> str:
     root = Path(project_path)
+
+    if _is_yaam_initialized(project_path) and not force:
+        return json_dumps({
+            "confirmation_required": True,
+            "message": "Yaam is already initialized in this project. Set force=true to overwrite, or choose a different project_path.",
+            "hint": "Ask the user if they want to overwrite the existing Yaam framework.",
+        })
+
     base_structure = {
         "contexts": [
             "ai-workflow-rules.md",
@@ -175,13 +211,23 @@ async def _setup_yaam_framework(project_path: str, project_name: str, stack: str
     created = []
     for dir_name, files in base_structure.items():
         target_dir = root / dir_name
+        err = _check_writable(target_dir)
+        if err:
+            return json_dumps({"error": err})
         target_dir.mkdir(parents=True, exist_ok=True)
         for fname in files:
-            content = _read_template(dir_name, fname)
-            (target_dir / fname).write_text(content, encoding="utf-8")
+            filepath = target_dir / fname
+            err = _check_writable(filepath)
+            if err:
+                return json_dumps({"error": err})
+            content = _read_template(dir_name, fname, stack=stack)
+            filepath.write_text(content, encoding="utf-8")
             created.append(f"{dir_name}/{fname}")
 
     agent_path = root / "AGENT.md"
+    err = _check_writable(agent_path)
+    if err:
+        return json_dumps({"error": err})
     agent_path.write_text(agent_content, encoding="utf-8")
     created.append("AGENT.md")
 
@@ -379,6 +425,7 @@ async def main() -> None:
                     project_name=arguments.get("project_name", "untitled"),
                     stack=arguments.get("stack", "generic"),
                     dry_run=arguments.get("dry_run", args.dry_run),
+                    force=arguments.get("force", False),
                 )
             elif name == "get_project_status":
                 result = await _get_project_status(project_path)
