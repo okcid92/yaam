@@ -46,6 +46,7 @@ TOOLS: list[Tool] = [
                 "stack": {"type": "string", "description": "Tech stack (generic, nextjs, laravel, etc.)"},
                 "dry_run": {"type": "boolean", "description": "Preview without writing files"},
                 "force": {"type": "boolean", "description": "Overwrite existing Yaam framework without asking"},
+                "empty": {"type": "boolean", "description": "Generate empty templates (structure only, no prefilled content)"},
             },
             "required": ["project_path", "project_name"],
         },
@@ -175,7 +176,12 @@ async def _check_yaam_status(project_path: str) -> str:
     return json_dumps({"initialized": True, "project": root.name, "context_files": files})
 
 
-async def _setup_yaam_framework(project_path: str, project_name: str, stack: str = "generic", dry_run: bool = False, force: bool = False) -> str:
+def _empty_template(dir_name: str, filename: str) -> str:
+    name = filename.replace(".md", "").replace("-", " ").title()
+    return f"# {name}\n\n> Généré par Yaam.\n"
+
+
+async def _setup_yaam_framework(project_path: str, project_name: str, stack: str = "generic", dry_run: bool = False, force: bool = False, empty: bool = False) -> str:
     root = Path(project_path)
 
     if _is_yaam_initialized(project_path) and not force:
@@ -220,7 +226,10 @@ async def _setup_yaam_framework(project_path: str, project_name: str, stack: str
             err = _check_writable(filepath)
             if err:
                 return json_dumps({"error": err})
-            content = _read_template(dir_name, fname, stack=stack)
+            if empty:
+                content = _empty_template(dir_name, fname)
+            else:
+                content = _read_template(dir_name, fname, stack=stack)
             filepath.write_text(content, encoding="utf-8")
             created.append(f"{dir_name}/{fname}")
 
@@ -228,7 +237,10 @@ async def _setup_yaam_framework(project_path: str, project_name: str, stack: str
     err = _check_writable(agent_path)
     if err:
         return json_dumps({"error": err})
-    agent_path.write_text(agent_content, encoding="utf-8")
+    if empty:
+        agent_path.write_text("# AGENT.md\n\nDirectives Yaam.\n", encoding="utf-8")
+    else:
+        agent_path.write_text(agent_content, encoding="utf-8")
     created.append("AGENT.md")
 
     return json_dumps({"created": created, "project": project_name, "stack": stack})
@@ -426,6 +438,7 @@ async def main() -> None:
                     stack=arguments.get("stack", "generic"),
                     dry_run=arguments.get("dry_run", args.dry_run),
                     force=arguments.get("force", False),
+                    empty=arguments.get("empty", False),
                 )
             elif name == "get_project_status":
                 result = await _get_project_status(project_path)
