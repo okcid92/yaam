@@ -28,12 +28,12 @@
 - [x] Créer le template `features-specs/TEMPLATE.md`
 - [x] Créer le template `issues/TEMPLATE.md`
 - [x] Créer `AGENT.md` (directives impératives pour l'IA)
-- [ ] Implémenter la logique `setup_yaam_framework` qui écrit ces fichiers
+- [x] Implémenter la logique `setup_yaam_framework` qui écrit ces fichiers
 
 ### 1.3 Initialisation intelligente (`yaam-init`)
 - [x] Scanner le projet cible pour détecter un `README.md` existant
 - [x] Analyser le README pour extraire nom, stack technique, contraintes
-- [ ] Poser des questions de clarification à l'utilisateur dans le chat
+- [x] Poser des questions de clarification à l'utilisateur dans le chat *(via IA — l'outil `yaam_init` fournit les données, l'IA questionne dans le chat avant d'appeler `setup_yaam_framework`)*
 - [x] Générer l'arborescence adaptée aux réponses
 
 ---
