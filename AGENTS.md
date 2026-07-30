@@ -2,7 +2,7 @@
 
 ## What this repo is
 
-Documentation-only repo for **Yaam**, a Vibe Coding context management framework using the Model Context Protocol (MCP). No code, no build, no tests. The single source of truth is `README.md`.
+Documentation + serveur MCP Python pour **Yaam**, un framework de gestion de contexte Vibe Coding avec le Model Context Protocol (MCP). La source de vérité est `README.md`.
 
 ## Language
 
@@ -12,9 +12,9 @@ All prose is in French. Keep new documentation entries in French.
 
 - `README.md` describes the framework spec, MCP tools, directory layout, and Debian install workflow. This is the primary artifact.
 - The directory tree described in the README (`contexts/`, `features-specs/`, `issues/`, `AGENT.md`) is what Yaam **generates** when run inside a project — it is **not** present in this repo itself.
-- There is no `.deb` packaging, build scripts, CI, or test setup in this repo. The framework binary is distributed separately.
-- `templates/` contient les fichiers markdown source que `yaam-server` embarquera pour générer l'arborescence dans un projet cible.
+- `templates/` contient les fichiers markdown source que `yaam-server` utilise pour générer l'arborescence dans un projet cible.
 - `yaam-server.py` est le serveur MCP en Python (dépendances dans `requirements.txt`). Point d'entrée : `python3 yaam-server.py [--project-path] [--verbose] [--dry-run]`.
+- `pkg/` contient la structure du paquet Debian. `build-deb.sh` construit le `.deb` (output : `yaam_1.0.0_all.deb`).
 - `roadmap.md` est la feuille de route dynamique du framework Yaam. L'agent coche les tâches au fur et à mesure avec `- [x]`.
 
 ## Workflow

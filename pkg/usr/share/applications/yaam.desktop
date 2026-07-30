@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Yaam
+Comment=Gestion de contexte Vibe Coding (MCP)
+Exec=/usr/bin/yaam-init
+Terminal=true
+Type=Application
+Categories=Development;AI;
+NoDisplay=true

@@ -1,0 +1,49 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        # Installer les dépendances Python
+        echo "Yaam : installation des dépendances Python..."
+        pip3 install mcp 2>/dev/null || pip3 install --break-system-packages mcp 2>/dev/null || echo "Yaam : pip non disponible, les dépendances doivent être installées manuellement : pip3 install mcp"
+
+        # Configurer OpenCode globalement
+        OPENCODE_CONFIG="$HOME/.opencode.json"
+        if [ -f "$OPENCODE_CONFIG" ]; then
+            # Vérifier si yaam est déjà configuré
+            if ! grep -q '"yaam"' "$OPENCODE_CONFIG" 2>/dev/null; then
+                # Ajouter la configuration Yaam dans le fichier existant
+                python3 -c "
+import json
+import os
+path = os.path.expanduser('$OPENCODE_CONFIG')
+with open(path) as f:
+    cfg = json.load(f)
+cfg.setdefault('mcp', {}).setdefault('servers', {})['yaam'] = {
+    'command': '/usr/bin/yaam-server'
+}
+with open(path, 'w') as f:
+    json.dump(cfg, f, indent=2)
+print('Yaam : configuration OpenCode ajoutée dans ~/.opencode.json')
+" 2>/dev/null || echo "Yaam : impossible de configurer OpenCode automatiquement"
+            else
+                echo "Yaam : déjà configuré dans OpenCode"
+            fi
+        else
+            # Créer le fichier de configuration
+            mkdir -p "$(dirname "$OPENCODE_CONFIG")"
+            cat > "$OPENCODE_CONFIG" << 'EOF'
+{
+  "mcp": {
+    "servers": {
+      "yaam": {
+        "command": "/usr/bin/yaam-server"
+      }
+    }
+  }
+}
+EOF
+            echo "Yaam : fichier ~/.opencode.json créé"
+        fi
+        ;;
+esac

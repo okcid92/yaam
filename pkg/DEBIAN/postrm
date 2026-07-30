@@ -1,0 +1,30 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    remove|purge)
+        echo "Yaam : retrait de la configuration OpenCode..."
+        OPENCODE_CONFIG="$HOME/.opencode.json"
+        if [ -f "$OPENCODE_CONFIG" ]; then
+            python3 -c "
+import json
+path = '$OPENCODE_CONFIG'
+try:
+    with open(path) as f:
+        cfg = json.load(f)
+    servers = cfg.get('mcp', {}).get('servers', {})
+    if 'yaam' in servers:
+        del servers['yaam']
+        if not servers:
+            del cfg['mcp']['servers']
+        if not cfg.get('mcp'):
+            del cfg['mcp']
+        with open(path, 'w') as f:
+            json.dump(cfg, f, indent=2)
+        print('Yaam : configuration OpenCode nettoyée')
+except Exception:
+    pass
+" 2>/dev/null || true
+        fi
+        ;;
+esac

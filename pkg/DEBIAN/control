@@ -1,0 +1,17 @@
+Package: yaam
+Version: 1.0.0
+Section: devel
+Priority: optional
+Architecture: all
+Depends: python3 (>= 3.10), python3-pip, python3-venv
+Maintainer: Alou Dicko <dicko.alou@gmail.com>
+Description: Vibe Coding context management framework (MCP)
+ Yaam est un framework de gestion de contexte minimaliste
+ et ultra-léger conçu pour le Vibe Coding. Propulsé par
+ le Model Context Protocol (MCP) d'Anthropic, Yaam permet
+ aux agents IA de comprendre l'état du projet, respecter
+ les standards d'architecture, et mettre à jour la roadmap
+ de manière autonome.
+ .
+ Ce paquet fournit le serveur MCP yaam-server et l'outil
+ yaam-init.

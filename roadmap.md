@@ -41,14 +41,18 @@
 ## Phase 2 — Distribution & Installation
 
 ### 2.1 Paquet Debian
-- [ ] Créer la structure `DEBIAN/control`, `DEBIAN/postinst`
-- [ ] Empaqueter `yaam-server` dans `/usr/bin/yaam-server`
-- [ ] Générer le `.deb` (`dpkg-deb --build`)
-- [ ] Tester l'installation avec `dpkg -i` et `apt-get install -f`
+- [x] Créer la structure `DEBIAN/control`, `DEBIAN/postinst`, `DEBIAN/postrm`
+- [x] Templates embarqués dans `/usr/share/yaam/templates/`
+- [x] `yaam-server` installé dans `/usr/bin/yaam-server`
+- [x] `yaam-init` installé dans `/usr/bin/yaam-init`
+- [x] Script `build-deb.sh` pour générer le `.deb`
+- [x] Générer le `.deb` (`dpkg-deb --build`) — testé et validé
+- [ ] Tester l'installation complète avec `dpkg -i` et `apt-get install -f`
 
 ### 2.2 Configuration OpenCode
-- [ ] Documenter la configuration MCP dans `~/.opencode.json`
-- [ ] Option : proposer une commande `yaam-configure` pour auto-ajouter le serveur
+- [x] Auto-configuration dans `~/.opencode.json` via `postinst`
+- [x] Nettoyage de la config via `postrm`
+- [ ] Documentation de la configuration manuelle dans `README.md`
 
 ---
 
@@ -91,3 +95,4 @@
 | 2026-07-30 | Templates contextuels markdown (×9) |
 | 2026-07-30 | Serveur MCP yaam-server (Python) + 6 outils MCP |
 | 2026-07-30 | Init intelligente yaam_init (scan README, détection stack, script standalone) |
+| 2026-07-30 | Packaging .deb (control, postinst, postrm, .desktop, build-deb.sh) |
