@@ -13,6 +13,7 @@ All prose is in French. Keep new documentation entries in French.
 - `README.md` describes the framework spec, MCP tools, directory layout, and Debian install workflow. This is the primary artifact.
 - The directory tree described in the README (`contexts/`, `features-specs/`, `issues/`, `AGENT.md`) is what Yaam **generates** when run inside a project — it is **not** present in this repo itself.
 - There is no `.deb` packaging, build scripts, CI, or test setup in this repo. The framework binary is distributed separately.
+- `templates/` contient les fichiers markdown source que `yaam-server` embarquera pour générer l'arborescence dans un projet cible.
 - `roadmap.md` est la feuille de route dynamique du framework Yaam. L'agent coche les tâches au fur et à mesure avec `- [x]`.
 
 ## Workflow

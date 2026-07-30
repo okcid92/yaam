@@ -18,16 +18,16 @@
 - [ ] Logger les appels MCP pour débogage
 
 ### 1.2 Génération de l'arborescence
-- [ ] Créer les templates markdown pour `contexts/` :
-  - [ ] `contexts/ai-workflow-rules.md`
-  - [ ] `contexts/architecture-context.md`
-  - [ ] `contexts/code-standards.md`
-  - [ ] `contexts/progress-tracer.md`
-  - [ ] `contexts/project-overview.md`
-  - [ ] `contexts/ui-context.md`
-- [ ] Créer le template `features-specs/TEMPLATE.md`
-- [ ] Créer le template `issues/TEMPLATE.md`
-- [ ] Créer `AGENT.md` (directives impératives pour l'IA)
+- [x] Créer les templates markdown pour `contexts/` :
+  - [x] `contexts/ai-workflow-rules.md`
+  - [x] `contexts/architecture-context.md`
+  - [x] `contexts/code-standards.md`
+  - [x] `contexts/progress-tracer.md`
+  - [x] `contexts/project-overview.md`
+  - [x] `contexts/ui-context.md`
+- [x] Créer le template `features-specs/TEMPLATE.md`
+- [x] Créer le template `issues/TEMPLATE.md`
+- [x] Créer `AGENT.md` (directives impératives pour l'IA)
 - [ ] Implémenter la logique `setup_yaam_framework` qui écrit ces fichiers
 
 ### 1.3 Initialisation intelligente (`yaam-init`)
@@ -88,4 +88,4 @@
 
 | Date | Tâche |
 |------|-------|
-| — | — |
+| 2026-07-30 | Templates contextuels markdown (×9) |
