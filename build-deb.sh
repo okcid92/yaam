@@ -34,7 +34,7 @@ find "$PKG_DIR/usr" -type f -name "*.txt" -exec chmod 644 {} \;
 find "$PKG_DIR/usr" -type f -name "*.desktop" -exec chmod 644 {} \;
 
 echo "=== Build du .deb ==="
-dpkg-deb --build "$PKG_DIR" "$OUTPUT"
+dpkg-deb --root-owner-group --build "$PKG_DIR" "$OUTPUT"
 
 echo "=== Vérification ==="
 dpkg-deb --info "$OUTPUT"

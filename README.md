@@ -48,19 +48,36 @@ Le serveur MCP `yaam-server` met à disposition de votre agent une boîte à out
 
 ## 📦 Installation (Debian / Ubuntu / Mint)
 
-### 1. Installation du paquet
+### 1. Construire le paquet (depuis les sources)
 
-Téléchargez le dernier fichier `.deb` depuis les releases (ou via votre dépôt APT personnalisé) et installez-le :
+```bash
+git clone https://github.com/okcid92/yaam.git
+cd yaam
+./build-deb.sh
+```
+
+Le fichier `yaam_1.0.0_all.deb` est généré à la racine.
+
+### 2. Installer le paquet
 
 ```bash
 sudo dpkg -i yaam_1.0.0_all.deb
-# Installe les dépendances nécessaires si besoin
-sudo apt-get install -f
+sudo apt-get install -f   # installe les dépendances si besoin
 ```
 
-### 2. Configuration d'OpenCode
+Le `postinst` configure automatiquement :
+- Dépendances Python (`pip3 install mcp`)
+- Serveur MCP dans `~/.opencode.json` (configuration OpenCode)
+- Templates installés dans `/usr/share/yaam/templates/`
 
-Ajoutez le serveur MCP Yaam de manière globale dans votre fichier de configuration `~/.opencode.json` :
+### 3. Vérifier
+
+```bash
+yaam-init          # Scanne le README du projet courant
+yaam-init /chemin/vers/projet   # Scan un projet spécifique
+```
+
+Le serveur MCP est accessible via `/usr/bin/yaam-server`. Si vous devez le configurer manuellement dans OpenCode :
 
 ```json
 {

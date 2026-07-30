@@ -113,9 +113,9 @@ TOOLS: list[Tool] = [
 def _find_templates_dir() -> Path:
     script = Path(__file__).resolve()
     candidates = [
+        script.parent.parent / "share" / "yaam" / "templates",
         Path("/usr/share/yaam/templates"),
         script.parent / "templates",
-        script.parent.parent / "templates",
         Path.cwd() / "templates",
     ]
     for p in candidates:
