@@ -14,6 +14,7 @@ All prose is in French. Keep new documentation entries in French.
 - The directory tree described in the README (`contexts/`, `features-specs/`, `issues/`, `AGENT.md`) is what Yaam **generates** when run inside a project — it is **not** present in this repo itself.
 - There is no `.deb` packaging, build scripts, CI, or test setup in this repo. The framework binary is distributed separately.
 - `templates/` contient les fichiers markdown source que `yaam-server` embarquera pour générer l'arborescence dans un projet cible.
+- `yaam-server.py` est le serveur MCP en Python (dépendances dans `requirements.txt`). Point d'entrée : `python3 yaam-server.py [--project-path] [--verbose] [--dry-run]`.
 - `roadmap.md` est la feuille de route dynamique du framework Yaam. L'agent coche les tâches au fur et à mesure avec `- [x]`.
 
 ## Workflow

@@ -7,15 +7,15 @@
 ## Phase 1 — Fondations du Framework
 
 ### 1.1 Serveur MCP `yaam-server`
-- [ ] Implémenter le binaire `yaam-server` (Node.js / Go / Python)
-- [ ] Implémenter l'outil MCP `check_yaam_status`
-- [ ] Implémenter l'outil MCP `setup_yaam_framework`
-- [ ] Implémenter l'outil MCP `get_project_status`
-- [ ] Implémenter l'outil MCP `add_tracer_task`
-- [ ] Implémenter l'outil MCP `complete_tracer_task`
-- [ ] Implémenter l'outil MCP `log_progress_note`
-- [ ] Gérer les erreurs (pas de README, projet déjà initialisé, etc.)
-- [ ] Logger les appels MCP pour débogage
+- [x] Implémenter le binaire `yaam-server` (Python)
+- [x] Implémenter l'outil MCP `check_yaam_status`
+- [x] Implémenter l'outil MCP `setup_yaam_framework`
+- [x] Implémenter l'outil MCP `get_project_status`
+- [x] Implémenter l'outil MCP `add_tracer_task`
+- [x] Implémenter l'outil MCP `complete_tracer_task`
+- [x] Implémenter l'outil MCP `log_progress_note`
+- [x] Gérer les erreurs (pas de README, projet déjà initialisé, etc.)
+- [x] Logger les appels MCP pour débogage
 
 ### 1.2 Génération de l'arborescence
 - [x] Créer les templates markdown pour `contexts/` :
@@ -89,3 +89,4 @@
 | Date | Tâche |
 |------|-------|
 | 2026-07-30 | Templates contextuels markdown (×9) |
+| 2026-07-30 | Serveur MCP yaam-server (Python) + 6 outils MCP |
