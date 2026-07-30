@@ -1,3 +1,6 @@
+```
+
+```
 
 # 🗺️ Roadmap Yaam
 
@@ -52,13 +55,13 @@
 - [X] `yaam-init` installé dans `/usr/bin/yaam-init`
 - [X] Script `build-deb.sh` pour générer le `.deb`
 - [X] Générer le `.deb` (`dpkg-deb --build`) — testé et validé
-- [x] Tester l'installation complète avec `dpkg -i` et `apt-get install -f`
+- [X] Tester l'installation complète avec `dpkg -i` et `apt-get install -f`
 
 ### 2.2 Configuration OpenCode
 
 - [X] Auto-configuration dans `~/.opencode.json` via `postinst`
 - [X] Nettoyage de la config via `postrm`
-- [x] Documentation de la configuration dans `README.md`
+- [X] Documentation de la configuration dans `README.md`
 
 ---
 
@@ -66,16 +69,17 @@
 
 ### 3.1 Mise à jour automatique du progrès
 
-- [ ] `add_tracer_task` : ajouter une tâche non cochée dans `progress-tracer.md`
-- [ ] `complete_tracer_task` : cocher une tâche (`- [ ]` → `- [x]`)
-- [ ] `log_progress_note` : horodater une note dans le journal historique
-- [ ] `get_project_status` : retourner l'état courant de la roadmap
+- [X] `add_tracer_task` : ajouter une tâche non cochée dans `progress-tracer.md`
+- [X] `complete_tracer_task` : cocher une tâche (`- [ ]` → `- [x]`)
+- [X] `log_progress_note` : horodater une note dans le journal historique
+- [X] `get_project_status` : retourner l'état courant de la roadmap
 
 ### 3.2 Robustesse
 
-- [ ] Détecter et signaler les fichiers verrouillés / permissions insuffisantes
-- [ ] Éviter les doubles initialisations (ne pas écraser un projet déjà Yaam)
-- [ ] Mode dry-run pour prévisualiser les modifications
+- [x] Détecter et signaler les fichiers verrouillés / permissions insuffisantes
+- [x] Éviter les doubles initialisations (ne pas écraser un projet déjà Yaam)
+- [x] Mode dry-run pour prévisualiser les modifications
+- [x] Tests pytest (15 tests, tous passent)
 
 ---
 
@@ -106,4 +110,5 @@
 | 2026-07-30 | Templates contextuels markdown (×9)                                           |
 | 2026-07-30 | Serveur MCP yaam-server (Python) + 6 outils MCP                                |
 | 2026-07-30 | Init intelligente yaam_init (scan README, détection stack, script standalone) |
-| 2026-07-30 | Packaging .deb (control, postinst, postrm, .desktop, build-deb.sh)             |
+| 2026-07-30 | Packaging .deb (control, postinst, postrm, .desktop, build-deb.sh) |
+| 2026-07-30 | Phase 3 — Robustesse (double init, permissions, dry-run, tests pytest) |

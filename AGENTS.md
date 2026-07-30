@@ -15,6 +15,7 @@ All prose is in French. Keep new documentation entries in French.
 - `templates/` contient les fichiers markdown source que `yaam-server` utilise pour générer l'arborescence dans un projet cible.
 - `yaam-server.py` est le serveur MCP en Python (dépendances dans `requirements.txt`). Point d'entrée : `python3 yaam-server.py [--project-path] [--verbose] [--dry-run]`.
 - `pkg/` contient la structure du paquet Debian. `build-deb.sh` construit le `.deb` (output : `yaam_1.0.0_all.deb`).
+- `tests/` contient les tests pytest. Commande : `python3 -m pytest tests/ -v`.
 - `roadmap.md` est la feuille de route dynamique du framework Yaam. L'agent coche les tâches au fur et à mesure avec `- [x]`.
 
 ## Workflow
